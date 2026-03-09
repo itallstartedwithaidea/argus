@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARGUS — Algorithmic Authenticity Analysis for Social Media Profiles | googleadsagent.ai</title>
+<meta name="description" content="Free open-source authenticity analysis platform for social media profiles. Analyze LinkedIn, Reddit, Instagram, X, and Facebook accounts with AI-powered detection engines. Trust scores, evidence vaults, and browser extension. Cloudflare-native.">
+<meta name="keywords" content="fake profile detection, social media authenticity, trust score, deepfake detection, AI profile analysis, fake account detector, bot detection, disinformation, argus, open source">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://googleadsagent.ai/tools/argus/">
+<meta property="og:title" content="ARGUS — Algorithmic Authenticity Analysis | googleadsagent.ai">
+<meta property="og:description" content="Free open-source tool to analyze social media profile authenticity. Trust scores from 0-100 with full signal breakdown across image, text, behavioral, and network engines.">
+<meta property="og:url" content="https://googleadsagent.ai/tools/argus/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="googleadsagent.ai">
+<meta property="og:image" content="https://googleadsagent.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ARGUS — Algorithmic Authenticity Analysis">
+<meta name="twitter:description" content="VirusTotal for fake social media profiles. Free, open source, Cloudflare-native.">
+<meta name="twitter:image" content="https://googleadsagent.ai/og-image.png">
+<meta name="twitter:site" content="@_johnmwilliams">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='38%25' cy='38%25'%3E%3Cstop offset='0%25' stop-color='%23f0a830'/%3E%3Cstop offset='100%25' stop-color='%23b07518'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='15' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ARGUS — Algorithmic Authenticity Analysis Platform",
+  "description": "Free open-source platform for analyzing social media profile authenticity. Four parallel detection engines: Image (GAN/C2PA/EXIF), Text (GPTZero/stylometrics), Behavioral (account age/patterns), Network (coordination detection). Outputs trust scores from 0-100 with full reasoning.",
+  "url": "https://googleadsagent.ai/tools/argus/",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Web Browser",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "John Williams", "url": "https://itallstartedwithaidea.com" },
+  "isPartOf": { "@type": "WebApplication", "name": "Google Ads Agent", "url": "https://googleadsagent.ai" },
+  "featureList": ["Image Engine (Hive AI, C2PA, EXIF)", "Text Engine (GPTZero, Stylometrics)", "Behavioral Engine (account patterns)", "Network Graph Analysis", "Chrome Extension", "Evidence Vault (R2)", "Dispute/Opt-Out System", "Google Indexing API"]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://googleadsagent.ai/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://googleadsagent.ai/tools/"},{"@type":"ListItem","position":3,"name":"ARGUS — Authenticity Analyzer"}]}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is ARGUS?", "acceptedAnswer": {"@type": "Answer", "text": "ARGUS is a free, open-source algorithmic authenticity analysis platform. It analyzes social media profiles across LinkedIn, Reddit, Instagram, X, and Facebook, returning a trust score (0-100) with full reasoning and signal breakdown."}},
+    {"@type": "Question", "name": "How does ARGUS detect fake profiles?", "acceptedAnswer": {"@type": "Answer", "text": "ARGUS uses four parallel detection engines: Image Engine (GAN artifact detection via Hive AI, C2PA provenance, EXIF metadata), Text Engine (GPTZero AI text probability, stylometric variance), Behavioral Engine (account age vs activity, posting patterns), and Network Graph Analysis (coordination detection, flagged account clusters)."}},
+    {"@type": "Question", "name": "Is ARGUS free to use?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ARGUS is 100% free and open source under the MIT license. The entire platform runs on Cloudflare's free tier (Workers, D1, R2, KV, Queues, Pages) for approximately $0-5/month at scale."}},
+    {"@type": "Question", "name": "Can I dispute an ARGUS analysis?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Anyone can submit a dispute at any time. Evidence is reviewed in tiers: Tier 1 (government ID + platform verification) is auto-approved for removal, Tier 2 (cross-platform presence, employer confirmation) goes through human review, and Tier 3 (no evidence) is denied. Resolved disputes convert the page to a dispute-resolved notice."}},
+    {"@type": "Question", "name": "How are trust scores calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Trust scores are weighted aggregates: Network Analysis (35%), Behavioral Analysis (30%), Image Analysis (20%), Text Analysis (15%). Scores below 25 are Critical, 26-40 High Risk, 41-60 Medium Risk, and above 60 Low Risk. Every published page has been reviewed and approved by a human."}}
+  ]
+}
+</script>
+<style>
+:root {
+  --bg: #08080d;
+  --bg2: #0e0e16;
+  --bg3: #14141f;
+  --surface: #1a1a2a;
+  --border: #2a2a3a;
+  --text: #e8e6e3;
+  --text2: #9a9aaa;
+  --text3: #686880;
+  --amber: #f0a830;
+  --amber2: #d4941a;
+  --amber-dim: rgba(240,168,48,.08);
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --red: #f87171;
+  --cyan: #22d3ee;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-quote: 'Courier Prime', 'Courier New', monospace;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { color: var(--amber); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--text); }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(8,8,13,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text2); }
+.nav-logo span { color: var(--amber); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { font-size: 0.85rem; color: var(--text2); font-weight: 500; }
+.nav-links a:hover { color: var(--amber); }
+.nav-cta { background: var(--amber); color: var(--bg); padding: 0.45rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; }
+.nav-cta:hover { background: var(--text); color: var(--bg); }
+.nav-hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--text2); padding: 4px 8px; border-radius: 6px; font-size: 16px; cursor: pointer; }
+.mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: rgba(8,8,13,0.97); backdrop-filter: blur(16px); z-index: 99; padding: 16px; overflow-y: auto; flex-direction: column; gap: 4px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--font-mono); font-size: 14px; color: var(--text2); padding: 12px 16px; border-radius: 8px; text-decoration: none; display: block; }
+.mobile-menu a:hover { color: var(--amber); background: var(--amber-dim); }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+}
+
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 4rem; position: relative; }
+.hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(240,168,48,0.06) 0%, transparent 70%); pointer-events: none; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--border); padding: 0.4rem 1rem; border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--amber); letter-spacing: 0.04em; margin-bottom: 2rem; }
+.hero h1 { font-family: var(--font-serif); font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.5rem; max-width: 800px; }
+.hero h1 em { font-style: normal; color: var(--amber); }
+.hero p { font-size: 1.15rem; color: var(--text2); max-width: 640px; margin: 0 auto 2rem; line-height: 1.7; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 1rem; }
+.btn { font-family: var(--font-mono); font-size: 0.85rem; padding: 0.7rem 1.8rem; border-radius: 8px; font-weight: 600; transition: all 0.2s; display: inline-block; text-decoration: none; }
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--amber); color: var(--bg); }
+.btn-primary:hover { background: var(--text); }
+.btn-secondary { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+.btn-secondary:hover { color: var(--amber); border-color: rgba(240,168,48,.3); }
+.hero-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text3); }
+.hero-stats strong { color: var(--amber); font-size: 1.4rem; display: block; }
+
+.breadcrumb-bar { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--text3); padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.breadcrumb a { color: var(--text3); text-decoration: none; }
+.breadcrumb a:hover { color: var(--amber); }
+.breadcrumb .sep { opacity: 0.4; }
+
+section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 3rem; }
+section h2 { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem); text-align: center; margin-bottom: 0.5rem; }
+section h2 em { font-style: normal; color: var(--amber); }
+.section-sub { text-align: center; color: var(--text2); font-size: 1rem; max-width: 640px; margin: 0 auto 2.5rem; }
+
+.arch-diagram { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text2); overflow-x: auto; line-height: 1.8; max-width: 700px; margin: 0 auto; }
+.arch-diagram .flow-arrow { color: var(--amber); }
+.arch-diagram .flow-label { color: var(--text); font-weight: 500; }
+.arch-diagram .flow-indent { padding-left: 2rem; }
+.arch-diagram .flow-sub { color: var(--text3); }
+
+.engines-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.engine-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: all 0.3s; position: relative; overflow: hidden; }
+.engine-card:hover { border-color: rgba(240,168,48,.3); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.3); }
+.engine-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--amber) 0%, transparent 100%); opacity: 0; transition: opacity .3s; }
+.engine-card:hover::before { opacity: 1; }
+.engine-icon { font-size: 1.6rem; margin-bottom: 12px; }
+.engine-name { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+.engine-weight { font-family: var(--font-mono); font-size: 0.7rem; color: var(--amber); margin-bottom: 8px; }
+.engine-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+.engine-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.engine-tool { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text3); background: var(--bg3); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; }
+
+.services-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.services-table th { font-family: var(--font-mono); font-size: 0.7rem; color: var(--amber); text-align: left; padding: 10px 16px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.05em; }
+.services-table td { padding: 10px 16px; border-bottom: 1px solid rgba(42,42,58,0.5); color: var(--text2); }
+.services-table tr:hover td { color: var(--text); }
+.services-table .svc-name { font-family: var(--font-mono); color: var(--text); font-weight: 500; }
+
+.legal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.legal-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+.legal-card .legal-icon { font-size: 1.4rem; margin-bottom: 8px; }
+.legal-card h4 { font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 6px; }
+.legal-card p { font-size: 0.78rem; color: var(--text3); line-height: 1.5; }
+
+.dispute-tiers { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.tier-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.tier-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--amber); font-weight: 600; margin-bottom: 6px; }
+.tier-evidence { font-size: 0.85rem; color: var(--text); margin-bottom: 6px; }
+.tier-outcome { font-size: 0.78rem; color: var(--text3); }
+
+.cta-section { text-align: center; padding: 5rem 2rem; }
+.cta-section h2 { margin-bottom: 1rem; }
+.cta-section p { color: var(--text2); margin-bottom: 2rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text3); }
+footer a { color: var(--text2); }
+footer a:hover { color: var(--amber); }
+
+@media (max-width: 768px) {
+  .hero { padding: 6rem 1.5rem 3rem; }
+  section { padding: 3rem 1.5rem 2rem; }
+}
+</style>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo">google<span>ads</span>agent<span>.ai</span></a>
+  <div class="nav-links">
+    <a href="/tools/">Tools</a>
+    <a href="/dashboard/">Dashboard</a>
+    <a href="/blog/">Blog</a>
+    <a href="/course/">Course</a>
+    <a href="/contact/">Contact</a>
+    <a href="/tools/argus/reports">Reports</a>
+    <a href="https://github.com/itallstartedwithaidea/argus" target="_blank" rel="noopener">GitHub</a>
+    <a href="app.html" class="nav-cta">Submit Profile</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+</nav>
+<div class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="/tools/">Tools</a>
+  <a href="/tools/argus/reports">Published Reports</a>
+  <a href="/dashboard/">Dashboard</a>
+  <a href="/blog/">Blog</a>
+  <a href="/course/">Course</a>
+  <a href="/contact/">Contact</a>
+  <a href="app.html" style="color:var(--amber);">Submit Profile</a>
+  <a href="dispute.html">Dispute / Opt-Out</a>
+</div>
+
+<section class="hero">
+  <div class="hero-badge">&#128065; Open Source &middot; MIT License &middot; Cloudflare-Native</div>
+  <h1>Algorithmic <em>Authenticity</em> Analysis</h1>
+  <p>
+    VirusTotal for fake social media profiles. Submit any profile URL across LinkedIn, Reddit, Instagram, X, or Facebook
+    and receive a trust score (0&ndash;100) with full signal reasoning. Free, open source, human-reviewed.
+  </p>
+  <div class="hero-actions">
+    <a href="app.html" class="btn btn-primary">Submit a Profile</a>
+    <a href="dispute.html" class="btn btn-secondary">Dispute / Opt-Out</a>
+    <a href="docs.html" class="btn btn-secondary">Documentation</a>
+    <a href="https://github.com/itallstartedwithaidea/argus" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <div class="hero-stats">
+    <div><strong>4</strong> Detection Engines</div>
+    <div><strong>5</strong> Platforms</div>
+    <div><strong>0&ndash;100</strong> Trust Score</div>
+    <div><strong>$0</strong> Monthly Cost</div>
+  </div>
+</section>
+
+<div class="breadcrumb-bar">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> <span class="sep">/</span>
+    <a href="/tools/">Tools</a> <span class="sep">/</span>
+    <span>ARGUS &mdash; Authenticity Analyzer</span>
+  </nav>
+</div>
+
+<section class="reveal">
+  <h2>How ARGUS <em>works</em></h2>
+  <p class="section-sub">Four detection engines run in parallel. Results flow through admin approval before publishing. Nothing goes public without human sign-off.</p>
+  <div class="arch-diagram">
+    <div><span class="flow-label">Browser Extension</span> <span class="flow-sub">(Chrome MV3 &mdash; real-time badge injection)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Cloudflare Worker API</span> <span class="flow-sub">(D1 database + KV cache)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Analysis Queue</span> <span class="flow-sub">(CF Queues &mdash; async processing)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Detection Pipeline</span></div>
+    <div class="flow-indent">&#9500;&#9472; <span class="flow-label">Image Engine</span> <span class="flow-sub">(Hive AI + C2PA + EXIF)</span></div>
+    <div class="flow-indent">&#9500;&#9472; <span class="flow-label">Text Engine</span> <span class="flow-sub">(GPTZero + stylometrics)</span></div>
+    <div class="flow-indent">&#9500;&#9472; <span class="flow-label">Behavioral</span> <span class="flow-sub">(account age, footprint, patterns)</span></div>
+    <div class="flow-indent">&#9492;&#9472; <span class="flow-label">Network Graph</span> <span class="flow-sub">(coordination detection via D1)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Admin Approval Dashboard</span> <span class="flow-sub">(human review &mdash; you approve/reject)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Public Landing Pages</span> <span class="flow-sub">(Cloudflare Pages)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Google Indexing API</span> <span class="flow-sub">(auto-triggered on publish)</span></div>
+    <div class="flow-indent"><span class="flow-arrow">&darr;</span></div>
+    <div><span class="flow-label">Evidence Vault</span> <span class="flow-sub">(R2 &mdash; immutable archive)</span></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>Detection <em>Engines</em></h2>
+  <p class="section-sub">Each engine produces independent signals. Weighted aggregation yields the final trust score.</p>
+  <div class="engines-grid">
+    <div class="engine-card">
+      <div class="engine-icon">&#128247;</div>
+      <div class="engine-name">Image Engine</div>
+      <div class="engine-weight">20% weight</div>
+      <p class="engine-desc">Detects GAN-generated faces, missing content provenance, stock photo reuse, and EXIF metadata anomalies.</p>
+      <div class="engine-tools">
+        <span class="engine-tool">Hive AI</span>
+        <span class="engine-tool">C2PA SDK</span>
+        <span class="engine-tool">Reverse Image</span>
+        <span class="engine-tool">ExifTool</span>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="engine-icon">&#128221;</div>
+      <div class="engine-name">Text Engine</div>
+      <div class="engine-weight">15% weight</div>
+      <p class="engine-desc">Measures AI-generated text probability, stylometric variance across posts, agenda concentration, and linguistic pattern anomalies.</p>
+      <div class="engine-tools">
+        <span class="engine-tool">GPTZero</span>
+        <span class="engine-tool">Stylometrics</span>
+        <span class="engine-tool">Agenda Analysis</span>
+        <span class="engine-tool">NLP Patterns</span>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="engine-icon">&#128101;</div>
+      <div class="engine-name">Behavioral Engine</div>
+      <div class="engine-weight">30% weight</div>
+      <p class="engine-desc">Analyzes account age vs. activity ratio, pre-account digital footprint, posting time patterns, and personal content ratio.</p>
+      <div class="engine-tools">
+        <span class="engine-tool">Age/Activity</span>
+        <span class="engine-tool">Footprint</span>
+        <span class="engine-tool">Time Patterns</span>
+        <span class="engine-tool">Content Ratio</span>
+      </div>
+    </div>
+    <div class="engine-card">
+      <div class="engine-icon">&#128279;</div>
+      <div class="engine-name">Network Engine</div>
+      <div class="engine-weight">35% weight</div>
+      <p class="engine-desc">Maps connection age distribution, flagged account clusters, and coordinated behavior patterns (synchronized posting).</p>
+      <div class="engine-tools">
+        <span class="engine-tool">Graph Analysis</span>
+        <span class="engine-tool">Cluster Detection</span>
+        <span class="engine-tool">Coordination</span>
+        <span class="engine-tool">D1 Queries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>Cloudflare <em>Services</em> Used</h2>
+  <p class="section-sub">Entirely built on Cloudflare's free tier. Monthly cost at scale: ~$0&ndash;$5.</p>
+  <table class="services-table">
+    <thead>
+      <tr><th>Service</th><th>Purpose</th><th>Free Tier</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="svc-name">D1</td><td>SQLite database for profiles, disputes, submissions</td><td>5 GB + 25M reads/day</td></tr>
+      <tr><td class="svc-name">R2</td><td>Evidence vault &amp; screenshot storage</td><td>10 GB + 10M ops/month</td></tr>
+      <tr><td class="svc-name">KV</td><td>Score cache &amp; rate limiting</td><td>100K reads/day</td></tr>
+      <tr><td class="svc-name">Workers</td><td>API &amp; pipeline orchestration</td><td>100K req/day</td></tr>
+      <tr><td class="svc-name">Queues</td><td>Async analysis &amp; notification jobs</td><td>1M messages/month</td></tr>
+      <tr><td class="svc-name">Pages</td><td>Frontend &amp; public profile pages</td><td>Unlimited</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="reveal">
+  <h2>Legal <em>Architecture</em></h2>
+  <p class="section-sub">Every published page is protected by five legal safeguards. All analysis is framed as algorithmic opinion &mdash; never a verdict.</p>
+  <div class="legal-grid">
+    <div class="legal-card">
+      <div class="legal-icon">&#9878;&#65039;</div>
+      <h4>Algorithmic Opinion</h4>
+      <p>&ldquo;Algorithmic analysis, not a verdict&rdquo; displayed on every page.</p>
+    </div>
+    <div class="legal-card">
+      <div class="legal-icon">&#128214;</div>
+      <h4>Open Methodology</h4>
+      <p>Full methodology disclosure. Open source, publicly auditable.</p>
+    </div>
+    <div class="legal-card">
+      <div class="legal-icon">&#128202;</div>
+      <h4>Confidence Shown</h4>
+      <p>Confidence percentage and false positive rate on every analysis.</p>
+    </div>
+    <div class="legal-card">
+      <div class="legal-icon">&#128227;</div>
+      <h4>Dispute Mechanism</h4>
+      <p>Prominent dispute/opt-out above the fold, not buried.</p>
+    </div>
+    <div class="legal-card">
+      <div class="legal-icon">&#128100;</div>
+      <h4>Human Review</h4>
+      <p>Every published page has been reviewed and approved by a human.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>Dispute &amp; <em>Opt-Out</em></h2>
+  <p class="section-sub">Anyone can dispute an analysis at any time. Evidence is reviewed in three tiers.</p>
+  <div class="dispute-tiers">
+    <div class="tier-card">
+      <div class="tier-label">Tier 1</div>
+      <div class="tier-evidence">Government ID + platform verification</div>
+      <div class="tier-outcome">Auto-approve removal</div>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label">Tier 2</div>
+      <div class="tier-evidence">Cross-platform presence, employer confirmation</div>
+      <div class="tier-outcome">Human review</div>
+    </div>
+    <div class="tier-card">
+      <div class="tier-label">Tier 3</div>
+      <div class="tier-evidence">&ldquo;I am real&rdquo; with no supporting evidence</div>
+      <div class="tier-outcome">Dispute denied</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="dispute.html" class="btn btn-secondary">Submit a Dispute</a>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2>Browser <em>Extension</em></h2>
+  <p class="section-sub">Chrome MV3 extension that injects trust badges directly onto social media profiles as you browse.</p>
+  <div class="engines-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+    <div class="engine-card" style="text-align:center;">
+      <div class="engine-icon">&#128101;</div>
+      <div class="engine-name">LinkedIn</div>
+      <p class="engine-desc">Badges on profile cards, search results, and feed mentions.</p>
+    </div>
+    <div class="engine-card" style="text-align:center;">
+      <div class="engine-icon">&#128172;</div>
+      <div class="engine-name">Reddit</div>
+      <p class="engine-desc">Badges on post authors and user profiles.</p>
+    </div>
+    <div class="engine-card" style="text-align:center;">
+      <div class="engine-icon">&#9993;</div>
+      <div class="engine-name">X / Twitter</div>
+      <p class="engine-desc">Badges on tweets and user cells.</p>
+    </div>
+    <div class="engine-card" style="text-align:center;">
+      <div class="engine-icon">&#128248;</div>
+      <div class="engine-name">Instagram</div>
+      <p class="engine-desc">Badges on posts and profile pages.</p>
+    </div>
+    <div class="engine-card" style="text-align:center;">
+      <div class="engine-icon">&#128077;</div>
+      <div class="engine-name">Facebook</div>
+      <p class="engine-desc">Badges on profile pages and timeline posts.</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="docs.html#extension" class="btn btn-secondary">Extension Install Guide</a>
+  </div>
+</section>
+
+<section class="cta-section reveal">
+  <h2>Start <em>analyzing</em></h2>
+  <p>Submit any social media profile URL. The analysis pipeline runs automatically. Every result is reviewed by a human before publishing.</p>
+  <div class="hero-actions">
+    <a href="app.html" class="btn btn-primary">Submit a Profile</a>
+    <a href="docs.html" class="btn btn-secondary">Documentation</a>
+    <a href="https://github.com/itallstartedwithaidea/argus" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Part of the <a href="/">Google Ads Agent</a> ecosystem &middot;
+    Built by <a href="https://itallstartedwithaidea.com">John Williams</a> &middot;
+    <a href="https://github.com/itallstartedwithaidea/argus">GitHub</a> &middot;
+    <a href="/contact/">Contact</a> &middot;
+    <a href="/privacy/">Privacy</a> &middot;
+    <a href="mailto:john@itallstartedwithaidea.com">Email</a> &middot;
+    <a href="https://x.com/_johnmwilliams">X</a>
+  </p>
+</footer>
+
+<noscript>
+  <article style="max-width:700px;margin:2rem auto;padding:1rem;font-family:sans-serif;">
+    <h1>ARGUS — Algorithmic Authenticity Analysis Platform</h1>
+    <p>ARGUS analyzes social media profiles across LinkedIn, Reddit, Instagram, X, and Facebook and returns a trust score (0-100) with full reasoning. Four parallel detection engines: Image (GAN/C2PA/EXIF), Text (GPTZero/stylometrics), Behavioral (account age/patterns), Network (coordination detection). Free, open source, Cloudflare-native.</p>
+    <h2>Detection Engines</h2>
+    <p>Image Engine (20%): Hive AI, C2PA SDK, Reverse Image, ExifTool. Text Engine (15%): GPTZero, Stylometrics, Agenda Analysis. Behavioral Engine (30%): Account age, digital footprint, posting patterns. Network Engine (35%): Graph analysis, cluster detection, coordination scoring.</p>
+    <h2>Legal Protections</h2>
+    <p>All analysis is framed as algorithmic opinion. Full methodology disclosure. Confidence and false positive rate shown. Prominent dispute mechanism. Human editorial review on every published page.</p>
+  </article>
+</noscript>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

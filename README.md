@@ -1,163 +1,112 @@
 # 👁️ ARGUS by googleadsagent.ai
+
 ### Algorithmic Authenticity Analysis Platform
-**VirusTotal for fake social media profiles — free, open source, Cloudflare-native**
+
+**VirusTotal for fake social media profiles & posts — free, open source, Cloudflare-native**
+
+🔗 **Live**: [googleadsagent.ai/tools/argus](https://googleadsagent.ai/tools/argus/)
+📊 **Reports**: [googleadsagent.ai/tools/argus/reports](https://googleadsagent.ai/tools/argus/reports)
 
 ---
 
 ## What It Does
 
-ARGUS analyzes any social media profile or post across LinkedIn, Reddit, Instagram, X, and Facebook and returns a trust score (0–100) with full reasoning. Flagged profiles get a public landing page indexed by Google. All analysis is framed as algorithmic opinion — not a verdict. Profile owners can dispute at any time.
+ARGUS analyzes any social media profile, post, or engagement pattern across LinkedIn, Reddit, Instagram, X, Facebook, YouTube, Quora, TikTok, and Pinterest. It returns a **weighted trust score (0–100)** with full reasoning, detection engine breakdowns, commenter analysis, and penalty explanations.
 
-**Every page that goes live has been reviewed and approved by a human (you).**
+Flagged content gets a public landing page indexed by Google with SEO-friendly URLs. All analysis is framed as algorithmic opinion — not a verdict. Profile owners can dispute at any time.
+
+**Every page that goes live has been reviewed and approved by a human.**
+
+---
+
+## Key Features
+
+- **4 Detection Engines**: Image, Text, Behavioral, Network — each scored independently
+- **Commenter Analysis**: Every visible commenter analyzed for bot patterns, coordination, authenticity
+- **Weighted Scoring Algorithm**: `Network(35%) + Behavioral(30%) + Image(20%) + Text(15%) - Penalties`
+- **Penalty System**: Automatic deductions for unverifiable data, bot patterns, fake engagement, etc.
+- **Private Profile Mode**: Paste content + screenshots for profiles ARGUS can't scrape
+- **Claude AI Analysis**: Powered by Anthropic Claude for deep content analysis
+- **Dynamic Public Reports**: Wiki-style pages generated on-the-fly via Cloudflare Workers
+- **SEO-Friendly URLs**: `/report/reddit-landing-page-navigation-conversion-85`
+- **Admin Dashboard**: OAuth-protected with Chart.js analytics, grouping, dispute resolution
+- **Evidence Upload**: R2 storage for dispute evidence files
+- **Email Notifications**: Detailed analysis results sent to submitters via Resend
+- **Dynamic Sitemap**: Auto-generated from published reports
+- **Browser Extension**: Chrome extension for quick analysis
 
 ---
 
 ## Architecture
 
 ```
-Browser Extension (Chrome MV3)
-    ↓ real-time badge injection
-Cloudflare Worker API
-    ↓ D1 database + KV cache
-Analysis Queue (CF Queues)
-    ↓ async processing
-Detection Pipeline
-    ├── Image Engine    (Hive AI + C2PA + EXIF)
-    ├── Text Engine     (GPTZero + stylometrics)
-    ├── Behavioral      (account age, footprint, patterns)
-    └── Network Graph   (coordination detection via D1)
+Community Submission Form / Private Mode / Browser Extension
     ↓
-Admin Approval Dashboard
-    ↓ human review — you approve/reject
-Public Landing Pages (Next.js on CF Pages)
+Cloudflare Pages Function API (/api/argus)
+    ├── Submit → KV queue + rate limiting
+    ├── Analyze → Claude AI + weighted scoring algorithm
+    ├── Approve → SEO slug generation + email + sitemap
+    └── Dispute → R2 evidence upload + resolution workflow
     ↓
-Google Indexing API (auto-triggered on publish)
+Admin Dashboard (OAuth-protected)
+    ├── Queue management with full detail view
+    ├── Analytics: Chart.js charts (platform, scores, risk, timeline)
+    ├── Grouping: Repeat posters, submitter activity tracking
+    └── Score breakdown: composite, penalties, Claude raw vs final
     ↓
-Evidence Vault (R2 — immutable archive)
+Dynamic Public Report Pages (Cloudflare Workers)
+    ├── Trust score with SVG gauge
+    ├── 4 engine breakdowns with signal tables
+    ├── Commenter analysis table
+    ├── Bot/AI/Fake engagement detection cards
+    ├── Poster profile section
+    ├── Score calculation transparency
+    └── Full SEO: Schema.org, Open Graph, breadcrumbs
+    ↓
+Google Indexing (via sitemap + robots.txt)
+```
+
+---
+
+## Scoring Algorithm
+
+Unlike generic AI scoring, ARGUS uses a **deterministic weighted composite**:
+
+```
+Final Score = Weighted Composite - Penalties
+
+Weighted Composite:
+  Network Engine  × 0.35
+  Behavioral      × 0.30
+  Image           × 0.20
+  Text            × 0.15
+
+Penalties (applied automatically):
+  Account age unverifiable:      -8
+  No visible posting history:    -10
+  Private submission:            -15
+  Page couldn't be fetched:      -12
+  Very limited content:          -10
+  Bot activity detected:         -up to 20
+  AI-generated content:          -up to 15
+  Fake engagement detected:      -up to 20
+  >50% suspicious comments:      -15
+  High followers + few posts:    -18
+  New account + high engagement: -20
 ```
 
 ---
 
 ## Cloudflare Services Used
 
-| Service | Purpose | Free Tier |
-|---------|---------|-----------|
-| **D1** | SQLite database | 5GB + 25M reads/day |
-| **R2** | Evidence vault storage | 10GB + 10M ops/month |
-| **KV** | Score cache + rate limiting | 100K reads/day |
-| **Workers** | API + pipeline orchestration | 100K req/day |
-| **Queues** | Async analysis jobs | 1M messages/month |
-| **Pages** | Next.js frontend | Unlimited |
+| Service     | Purpose                              | Free Tier            |
+|-------------|--------------------------------------|----------------------|
+| **Pages**   | Static pages + Functions API         | Unlimited            |
+| **KV**      | Submissions, disputes, config cache  | 100K reads/day       |
+| **R2**      | Evidence vault (dispute file uploads)| 10GB + 10M ops/month |
+| **Workers** | Dynamic report generation, sitemap   | 100K req/day         |
 
-**Monthly cost at scale: ~$0–$5**
-
----
-
-## Setup
-
-### 1. Prerequisites
-```bash
-npm install -g wrangler
-wrangler login
-```
-
-### 2. Create Cloudflare resources
-```bash
-# D1 database
-wrangler d1 create argus-db
-
-# R2 buckets
-wrangler r2 bucket create argus-evidence-vault
-wrangler r2 bucket create argus-screenshots
-
-# KV namespaces
-wrangler kv:namespace create SCORE_CACHE
-wrangler kv:namespace create RATE_LIMITER
-wrangler kv:namespace create SESSION
-
-# Queues
-wrangler queues create argus-analysis-queue
-wrangler queues create argus-notify-queue
-```
-
-### 3. Update wrangler.toml
-Paste the IDs from step 2 into `wrangler.toml`.
-
-### 4. Initialize database
-```bash
-wrangler d1 execute argus-db --file=./schema/d1_schema.sql
-```
-
-### 5. Set secrets
-```bash
-wrangler secret put ADMIN_SECRET_KEY      # Your private admin key
-wrangler secret put HIVE_API_KEY          # hive.ai free tier
-wrangler secret put GPTZERO_API_KEY       # gptzero.me free tier
-wrangler secret put SEARCH_CONSOLE_KEY    # Google Search Console
-wrangler secret put EMAIL_API_KEY         # Resend or Cloudflare Email
-```
-
-### 6. Deploy Worker API
-```bash
-wrangler deploy workers/api/index.js
-```
-
-### 7. Deploy Pages (Next.js frontend)
-```bash
-cd pages
-npm install
-npm run build
-wrangler pages deploy .next
-```
-
-### 8. Load browser extension
-- Open Chrome → `chrome://extensions`
-- Enable Developer Mode
-- Load Unpacked → select `extension/` folder
-
----
-
-## Admin Dashboard
-
-Access at: `https://argus.googleadsagent.ai/admin`
-
-The admin dashboard is your approval queue. Nothing goes public without your sign-off.
-
-**Approval flow:**
-1. Community submits a profile URL via `/submit`
-2. System runs full analysis pipeline
-3. You get an email notification
-4. You review the score, signals, and evidence in the dashboard
-5. One click to approve (publish + Google index) or reject
-6. Submitter gets notified of outcome if they provided email
-
----
-
-## Legal Architecture
-
-Every page is protected by five elements:
-
-1. **"Algorithmic analysis, not a verdict"** — displayed on every page
-2. **Full methodology disclosure** — open source, publicly auditable
-3. **Confidence + false positive rate shown** — transparency in scoring
-4. **Prominent dispute mechanism** — above the fold, not buried
-5. **Human editorial review** — you approved every published page
-
-Language used throughout: "flagged for review", "high risk", "scored X/100 based on these signals" — never "fake", "fraud", or "criminal".
-
----
-
-## Dispute / Opt-Out Process
-
-Anyone can submit a dispute at `/dispute`. Evidence tiers:
-
-| Tier | Evidence | Outcome |
-|------|---------|---------|
-| **Tier 1** | Government ID + platform verification | Auto-approve removal |
-| **Tier 2** | Cross-platform presence, employer confirmation | Human review |
-| **Tier 3** | "I am real" with no evidence | Dispute denied |
-
-Resolved disputes convert the page to a "dispute resolved" notice — retained for transparency, score removed from public display.
+**Monthly cost: ~$0–$5**
 
 ---
 
@@ -165,42 +114,146 @@ Resolved disputes convert the page to a "dispute resolved" notice — retained f
 
 ```
 argus/
-├── workers/
-│   ├── api/index.js          ← Main Cloudflare Worker API
-│   ├── pipeline/analyze.js   ← Detection engine pipeline
-│   └── lib/
-│       ├── utils.js          ← ID generation, rate limiting
-│       ├── evidence.js       ← R2 evidence archiving
-│       ├── seo.js            ← Sitemap + Google indexing
-│       └── notify.js         ← Email notifications
-├── pages/
-│   └── app/
-│       ├── admin/page.js     ← Admin approval dashboard
-│       ├── profiles/[slug]/  ← Public profile pages
-│       ├── submit/page.js    ← Community submission form
-│       └── dispute/page.js   ← Dispute submission form
+├── functions/
+│   ├── api/
+│   │   ├── argus.js              ← Main API: submit, analyze, approve, reject, dispute, stats
+│   │   └── argus-sitemap.js      ← Dynamic XML sitemap from published reports
+│   └── tools/argus/
+│       ├── admin.js              ← Admin page security headers middleware
+│       ├── reports.js            ← Public reports directory (dynamic listing)
+│       └── report/[[id]].js      ← Dynamic public report pages (slug + ID routing)
+├── pages/argus/
+│   ├── index.html                ← Landing page
+│   ├── app.html                  ← Submission form (URL + private mode)
+│   ├── admin.html                ← Admin dashboard (OAuth + Chart.js analytics)
+│   ├── dispute.html              ← Dispute form (with R2 file upload)
+│   └── docs.html                 ← Documentation
 ├── extension/
-│   ├── manifest.json         ← Chrome MV3 manifest
-│   ├── content_script.js     ← Badge injection
-│   └── background.js         ← Service worker
-├── schema/
-│   └── d1_schema.sql         ← Cloudflare D1 schema
-├── wrangler.toml             ← Full CF bindings config
+│   └── popup.html                ← Chrome extension popup
+├── analyze.js                    ← Original detection pipeline (reference)
+├── content_script.js             ← Chrome extension content script
+├── d1_schema.sql                 ← Database schema (reference)
+├── index.js                      ← Original Worker API (reference)
+├── manifest.json                 ← Chrome MV3 manifest
+├── page.js                       ← Original admin page (reference)
+├── wrangler.toml                 ← Cloudflare bindings config
 └── README.md
 ```
 
 ---
 
+## Setup (Integrated with googleadsagent.ai)
+
+ARGUS runs as part of the [googleadsagent.ai](https://googleadsagent.ai) Cloudflare Pages deployment.
+
+### Prerequisites
+
+```bash
+npm install -g wrangler
+wrangler login
+```
+
+### Required KV Namespaces
+
+- `SESSIONS` — submissions, disputes, config, rate limiting
+- `USERS` — OAuth session storage
+
+### Required R2 Bucket
+
+- `FILES` — evidence file uploads for disputes
+
+### Required Secrets
+
+```bash
+wrangler pages secret put ANTHROPIC_API_KEY    # Claude API key (or use universal localStorage)
+wrangler pages secret put RESEND_API_KEY       # Email notifications
+```
+
+### Required OAuth
+
+Google OAuth configured via `/api/auth` for admin dashboard access.
+
+---
+
+## API Endpoints
+
+### Public
+
+| Method | Endpoint | Action | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/argus?action=submit` | submit | Submit URL or private content for analysis |
+| POST | `/api/argus?action=dispute` | dispute | File a dispute with evidence |
+| POST | `/api/argus?action=upload` | upload | Upload evidence files to R2 |
+| GET | `/api/argus?action=submission&id=X` | submission | Get published submission |
+| GET | `/api/argus?action=published` | published | List all published reports |
+| GET | `/api/argus-sitemap` | — | Dynamic XML sitemap |
+
+### Admin (OAuth required)
+
+| Method | Endpoint | Action | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/argus?action=analyze` | analyze | Run Claude analysis on submission |
+| POST | `/api/argus?action=approve` | approve | Publish with SEO slug + email |
+| POST | `/api/argus?action=reject` | reject | Reject submission |
+| POST | `/api/argus?action=dispute_resolve` | dispute_resolve | Resolve dispute + notify claimant |
+| GET | `/api/argus?action=queue` | queue | Get all submissions |
+| GET | `/api/argus?action=disputes` | disputes | Get all disputes |
+| GET | `/api/argus?action=stats` | stats | Analytics data (charts, grouping) |
+
+---
+
 ## Detection Engines
 
-| Engine | Tools | Detects |
-|--------|-------|---------|
-| **Image** | Hive AI, C2PA SDK, ExifTool | GAN faces, missing provenance, EXIF anomalies |
-| **Text** | GPTZero, stylometrics | AI-generated text, agenda concentration |
-| **Behavioral** | Custom scoring | Age/activity ratio, footprint, posting patterns |
-| **Network** | D1 graph queries | Coordinated networks, flagged clusters |
+| Engine | Analyzes | Key Signals |
+|--------|----------|-------------|
+| **Image** | Profile pics, post images | GAN artifacts, stock photos, C2PA provenance, EXIF anomalies |
+| **Text** | Bio, posts, comments | AI-generated text, stylometric consistency, templated language |
+| **Behavioral** | Activity patterns | Account age vs activity, posting frequency, engagement ratios |
+| **Network** | Connections, interactions | Follower ratios, coordination indicators, bot network signatures |
 
-**Score weights:** Network (35%) > Behavioral (30%) > Image (20%) > Text (15%)
+Additional analysis modules:
+- **Bot Detection** — confidence score with specific indicators
+- **AI Content Detection** — GPT/Claude pattern recognition
+- **Fake Engagement** — like/comment/share manipulation detection
+- **Comments Analysis** — individual commenter authenticity assessment
+- **Poster Profile** — subject account assessment and history notes
+
+---
+
+## Legal Architecture
+
+Every page is protected by:
+
+1. **"Algorithmic analysis, not a verdict"** — displayed on every page
+2. **Full methodology disclosure** — open source, publicly auditable
+3. **Transparent scoring** — weighted composite with penalties shown
+4. **Prominent dispute mechanism** — above the fold, not buried
+5. **Human editorial review** — admin approves every published page
+
+---
+
+## Dispute / Opt-Out Process
+
+Anyone can submit a dispute at `/tools/argus/dispute` with file uploads (R2).
+
+| Tier | Evidence | Outcome |
+|------|----------|---------|
+| **Tier 1** | Government ID + platform verification | Auto-approve removal |
+| **Tier 2** | Cross-platform presence, employer confirmation | Human review |
+| **Tier 3** | "I am real" with no evidence | Dispute denied |
+
+Resolved disputes: claimant is emailed, linked submission is flagged, page updated.
+
+---
+
+## Live URLs
+
+- **Landing**: [googleadsagent.ai/tools/argus](https://googleadsagent.ai/tools/argus/)
+- **Submit**: [googleadsagent.ai/tools/argus/app](https://googleadsagent.ai/tools/argus/app)
+- **Reports**: [googleadsagent.ai/tools/argus/reports](https://googleadsagent.ai/tools/argus/reports)
+- **Dispute**: [googleadsagent.ai/tools/argus/dispute](https://googleadsagent.ai/tools/argus/dispute)
+- **Docs**: [googleadsagent.ai/tools/argus/docs](https://googleadsagent.ai/tools/argus/docs)
+- **Sitemap**: [googleadsagent.ai/api/argus-sitemap](https://googleadsagent.ai/api/argus-sitemap)
 
 ---
 

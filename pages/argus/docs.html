@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentation — ARGUS Authenticity Analysis Platform | googleadsagent.ai</title>
+<meta name="description" content="Complete documentation for ARGUS: setup guide, API reference, detection engine methodology, browser extension installation, database schema, Cloudflare deployment, and scoring methodology.">
+<meta name="keywords" content="argus documentation, api reference, setup guide, detection engines, trust score methodology, cloudflare workers, d1 schema, browser extension">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://googleadsagent.ai/tools/argus/docs.html">
+<meta property="og:title" content="ARGUS Documentation — Setup, API, Methodology">
+<meta property="og:description" content="Complete documentation for the ARGUS authenticity analysis platform. API reference, detection methodology, and deployment guide.">
+<meta property="og:url" content="https://googleadsagent.ai/tools/argus/docs.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="googleadsagent.ai">
+<meta property="og:image" content="https://googleadsagent.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ARGUS Documentation">
+<meta name="twitter:description" content="Complete documentation for the ARGUS authenticity analysis platform.">
+<meta name="twitter:image" content="https://googleadsagent.ai/og-image.png">
+<meta name="twitter:site" content="@_johnmwilliams">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='38%25' cy='38%25'%3E%3Cstop offset='0%25' stop-color='%23f0a830'/%3E%3Cstop offset='100%25' stop-color='%23b07518'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='15' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://googleadsagent.ai/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://googleadsagent.ai/tools/"},{"@type":"ListItem","position":3,"name":"ARGUS","item":"https://googleadsagent.ai/tools/argus/"},{"@type":"ListItem","position":4,"name":"Documentation"}]}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "ARGUS Documentation — Setup, API Reference, and Methodology",
+  "description": "Complete technical documentation for the ARGUS authenticity analysis platform.",
+  "url": "https://googleadsagent.ai/tools/argus/docs.html",
+  "author": { "@type": "Person", "name": "John Williams", "url": "https://itallstartedwithaidea.com" },
+  "publisher": { "@type": "Organization", "name": "googleadsagent.ai", "url": "https://googleadsagent.ai" },
+  "datePublished": "2026-03-08",
+  "dateModified": "2026-03-08"
+}
+</script>
+<style>
+:root {
+  --bg: #08080d; --bg2: #0e0e16; --bg3: #14141f; --surface: #1a1a2a;
+  --border: #2a2a3a; --text: #e8e6e3; --text2: #9a9aaa; --text3: #686880;
+  --amber: #f0a830; --amber2: #d4941a; --amber-dim: rgba(240,168,48,.08);
+  --green: #4ade80; --blue: #60a5fa; --red: #f87171; --purple: #a78bfa;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,13,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text2); }
+.nav-logo span { color: var(--amber); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { font-size: 0.85rem; color: var(--text2); font-weight: 500; text-decoration: none; }
+.nav-links a:hover { color: var(--amber); text-decoration: none; }
+.nav-hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--text2); padding: 4px 8px; border-radius: 6px; font-size: 16px; cursor: pointer; }
+.mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: rgba(8,8,13,0.97); backdrop-filter: blur(16px); z-index: 99; padding: 16px; flex-direction: column; gap: 4px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--font-mono); font-size: 14px; color: var(--text2); padding: 12px 16px; border-radius: 8px; display: block; text-decoration: none; }
+.mobile-menu a:hover { color: var(--amber); background: var(--amber-dim); }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-hamburger { display: block; } }
+
+.layout { display: flex; flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
+.sidebar { width: 240px; padding: 24px 16px; border-right: 1px solid var(--border); position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; flex-shrink: 0; }
+.sidebar-title { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; margin-top: 16px; }
+.sidebar-title:first-child { margin-top: 0; }
+.sidebar a { display: block; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text2); padding: 6px 12px; border-radius: 6px; text-decoration: none; margin-bottom: 2px; transition: all 0.15s; }
+.sidebar a:hover { color: var(--amber); background: var(--amber-dim); }
+
+.content { flex: 1; padding: 32px 48px 80px; max-width: 800px; min-width: 0; }
+
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--text3); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--text3); text-decoration: none; }
+.breadcrumb a:hover { color: var(--amber); }
+.breadcrumb .sep { opacity: 0.4; }
+
+.content h1 { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1.5rem; }
+.content h1 em { font-style: normal; color: var(--amber); }
+.content h2 { font-family: var(--font-serif); font-size: 1.5rem; margin: 3rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.content h2 em { font-style: normal; color: var(--amber); }
+.content h3 { font-family: var(--font-mono); font-size: 1rem; margin: 2rem 0 0.75rem; color: var(--amber); }
+.content p { color: var(--text2); margin-bottom: 1rem; line-height: 1.7; }
+.content ul, .content ol { color: var(--text2); margin: 0 0 1rem 1.5rem; line-height: 1.7; }
+.content li { margin-bottom: 0.3rem; }
+.content code { font-family: var(--font-mono); font-size: 0.85em; background: var(--bg2); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; color: var(--amber); }
+
+pre { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 1rem 0 1.5rem; overflow-x: auto; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+pre code { background: none; border: none; padding: 0; color: inherit; }
+
+.api-endpoint { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 1rem 0 1.5rem; }
+.api-method { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; display: inline-block; padding: 2px 8px; border-radius: 4px; margin-right: 8px; }
+.api-method.get { background: rgba(96,165,250,0.15); color: var(--blue); }
+.api-method.post { background: rgba(74,222,128,0.15); color: var(--green); }
+.api-path { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text); }
+.api-desc { font-size: 0.82rem; color: var(--text3); margin-top: 6px; }
+
+.table-wrap { overflow-x: auto; margin: 1rem 0 1.5rem; }
+.doc-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.doc-table th { font-family: var(--font-mono); font-size: 0.7rem; color: var(--amber); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.05em; }
+.doc-table td { padding: 8px 12px; border-bottom: 1px solid rgba(42,42,58,0.4); color: var(--text2); vertical-align: top; }
+.doc-table td:first-child { font-family: var(--font-mono); color: var(--text); font-size: 0.8rem; }
+
+.callout { background: var(--bg2); border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 1rem 0 1.5rem; font-size: 0.85rem; color: var(--text2); }
+.callout strong { color: var(--amber); font-family: var(--font-mono); font-size: 0.78rem; }
+
+footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text3); }
+footer a { color: var(--text2); }
+footer a:hover { color: var(--amber); }
+
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .content { padding: 24px 20px 60px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="/tools/argus/" class="nav-logo"><span>ARGUS</span> by googleadsagent.ai</a>
+  <div class="nav-links">
+    <a href="/tools/argus/">Overview</a>
+    <a href="/tools/argus/reports">Reports</a>
+    <a href="/tools/argus/app.html">Submit</a>
+    <a href="/tools/argus/dispute.html">Dispute</a>
+    <a href="/tools/">All Tools</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+</nav>
+<div class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="/tools/argus/">Overview</a>
+  <a href="/tools/argus/app.html">Submit</a>
+  <a href="/tools/argus/dispute.html">Dispute</a>
+  <a href="/tools/">All Tools</a>
+  <a href="https://github.com/itallstartedwithaidea/argus" target="_blank" rel="noopener">GitHub</a>
+</div>
+
+<div class="layout">
+  <aside class="sidebar" role="navigation" aria-label="Documentation sections">
+    <div class="sidebar-title">Getting Started</div>
+    <a href="#overview">Overview</a>
+    <a href="#setup">Setup &amp; Deploy</a>
+    <a href="#secrets">Secrets</a>
+    <div class="sidebar-title">API Reference</div>
+    <a href="#api-public">Public Endpoints</a>
+    <a href="#api-admin">Admin Endpoints</a>
+    <div class="sidebar-title">Engines</div>
+    <a href="#engines">Detection Engines</a>
+    <a href="#scoring">Scoring Methodology</a>
+    <div class="sidebar-title">Infrastructure</div>
+    <a href="#schema">Database Schema</a>
+    <a href="#cloudflare">Cloudflare Services</a>
+    <div class="sidebar-title">Extension</div>
+    <a href="#extension">Browser Extension</a>
+    <div class="sidebar-title">Legal</div>
+    <a href="#legal">Legal Architecture</a>
+    <a href="#dispute">Dispute Process</a>
+  </aside>
+
+  <main class="content">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span class="sep">/</span>
+      <a href="/tools/">Tools</a> <span class="sep">/</span>
+      <a href="/tools/argus/">ARGUS</a> <span class="sep">/</span>
+      <span>Documentation</span>
+    </nav>
+
+    <h1>ARGUS <em>Documentation</em></h1>
+    <p>Complete reference for the ARGUS algorithmic authenticity analysis platform. Setup, API, detection methodology, and deployment.</p>
+
+    <h2 id="overview">Overview</h2>
+    <p>ARGUS analyzes any social media profile or post across LinkedIn, Reddit, Instagram, X, and Facebook and returns a trust score (0&ndash;100) with full reasoning. Flagged profiles get a public landing page indexed by Google. All analysis is framed as algorithmic opinion &mdash; not a verdict. Profile owners can dispute at any time.</p>
+    <p>Every page that goes live has been reviewed and approved by a human.</p>
+
+    <h2 id="setup">Setup &amp; <em>Deploy</em></h2>
+
+    <h3>1. Prerequisites</h3>
+<pre><code>npm install -g wrangler
+wrangler login</code></pre>
+
+    <h3>2. Create Cloudflare Resources</h3>
+<pre><code># D1 database
+wrangler d1 create argus-db
+
+# R2 buckets
+wrangler r2 bucket create argus-evidence-vault
+wrangler r2 bucket create argus-screenshots
+
+# KV namespaces
+wrangler kv:namespace create SCORE_CACHE
+wrangler kv:namespace create RATE_LIMITER
+wrangler kv:namespace create SESSION
+
+# Queues
+wrangler queues create argus-analysis-queue
+wrangler queues create argus-notify-queue</code></pre>
+
+    <h3>3. Update wrangler.toml</h3>
+    <p>Paste the IDs from step 2 into <code>wrangler.toml</code>.</p>
+
+    <h3>4. Initialize Database</h3>
+<pre><code>wrangler d1 execute argus-db --file=./schema/d1_schema.sql</code></pre>
+
+    <h3 id="secrets">5. Set Secrets</h3>
+<pre><code>wrangler secret put ADMIN_SECRET_KEY      # Your private admin key
+wrangler secret put HIVE_API_KEY          # hive.ai free tier
+wrangler secret put GPTZERO_API_KEY       # gptzero.me free tier
+wrangler secret put SEARCH_CONSOLE_KEY    # Google Search Console
+wrangler secret put EMAIL_API_KEY         # Resend or Cloudflare Email</code></pre>
+
+    <h3>6. Deploy</h3>
+<pre><code># Deploy Worker API
+wrangler deploy workers/api/index.js
+
+# Deploy Pages frontend
+cd pages && npm install && npm run build
+wrangler pages deploy .next</code></pre>
+
+    <h2 id="api-public">Public API <em>Endpoints</em></h2>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/analyze</span>
+      <div class="api-desc">Submit any URL for analysis. Rate limited: 10 req/IP/hour.</div>
+    </div>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>url</td><td>string</td><td>Yes</td><td>Profile URL to analyze</td></tr>
+          <tr><td>engines</td><td>array</td><td>No</td><td>Engines to run: <code>image</code>, <code>text</code>, <code>behavioral</code>, <code>network</code>, or <code>all</code></td></tr>
+          <tr><td>notify_email</td><td>string</td><td>No</td><td>Email for completion notification</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/submit</span>
+      <div class="api-desc">Community submission. Goes to admin approval queue. Rate limited: 5 req/IP/hour.</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <span class="api-path">/api/score</span>
+      <div class="api-desc">Quick score lookup for browser extension. Returns cached result or auto-queues analysis.</div>
+    </div>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>platform</td><td>string</td><td>*</td><td>Platform: linkedin, reddit, instagram, x, facebook</td></tr>
+          <tr><td>handle</td><td>string</td><td>*</td><td>Profile handle/username</td></tr>
+          <tr><td>url</td><td>string</td><td>*</td><td>Full profile URL (alternative to platform+handle)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/dispute</span>
+      <div class="api-desc">Submit a dispute or opt-out request.</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/report</span>
+      <div class="api-desc">Community flag for an existing profile.</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <span class="api-path">/api/profile/:platform/:handle</span>
+      <div class="api-desc">Public profile data for approved/published profiles.</div>
+    </div>
+
+    <h2 id="api-admin">Admin API <em>Endpoints</em></h2>
+    <p>All admin endpoints require the <code>X-Admin-Key</code> header.</p>
+
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <span class="api-path">/api/admin/queue</span>
+      <div class="api-desc">Pending submissions awaiting review.</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/admin/approve</span>
+      <div class="api-desc">Approve a submission &mdash; publishes page, triggers Google indexing, notifies submitter.</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/admin/reject</span>
+      <div class="api-desc">Reject a submission.</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <span class="api-path">/api/admin/dispute/resolve</span>
+      <div class="api-desc">Resolve a dispute &mdash; approve (remove page) or reject (keep page).</div>
+    </div>
+
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <span class="api-path">/api/admin/disputes</span>
+      <div class="api-desc">Pending disputes awaiting review.</div>
+    </div>
+
+    <h2 id="engines">Detection <em>Engines</em></h2>
+
+    <h3>Image Engine (20% weight)</h3>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Check</th><th>Tool</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td>GAN Artifacts</td><td>Hive AI</td><td>AI-generated faces, StyleGAN artifacts</td></tr>
+          <tr><td>C2PA Provenance</td><td>C2PA SDK</td><td>Missing Content Credentials, origin verification</td></tr>
+          <tr><td>Reverse Image</td><td>SerpAPI</td><td>Stock photos, cross-platform image reuse</td></tr>
+          <tr><td>EXIF Metadata</td><td>ExifTool</td><td>Stripped metadata, inconsistent camera data</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Text Engine (15% weight)</h3>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Check</th><th>Tool</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td>AI Text Probability</td><td>GPTZero</td><td>AI-generated text across bio and posts</td></tr>
+          <tr><td>Stylometric Variance</td><td>Custom</td><td>Unnaturally consistent writing style</td></tr>
+          <tr><td>Agenda Concentration</td><td>Custom</td><td>Single-topic content farming</td></tr>
+          <tr><td>Linguistic Patterns</td><td>NLP</td><td>Non-human linguistic markers</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Behavioral Engine (30% weight)</h3>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Check</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td>Account Age vs. Activity</td><td>New accounts with disproportionate activity</td></tr>
+          <tr><td>Digital Footprint</td><td>Zero pre-account digital presence</td></tr>
+          <tr><td>Posting Time Patterns</td><td>Robotic posting intervals</td></tr>
+          <tr><td>Personal Content Ratio</td><td>Absence of personal/casual content</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Network Engine (35% weight)</h3>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Check</th><th>Detects</th></tr></thead>
+        <tbody>
+          <tr><td>Connection Age Distribution</td><td>Networks of predominantly new accounts</td></tr>
+          <tr><td>Flagged Account Clusters</td><td>Connections to previously flagged profiles</td></tr>
+          <tr><td>Coordinated Behavior</td><td>Synchronized posting patterns across accounts</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="scoring">Scoring <em>Methodology</em></h2>
+    <p>The final trust score is a weighted aggregate of all engine scores.</p>
+
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Score Range</th><th>Verdict</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>0 &ndash; 25</td><td style="color:var(--red);">Critical</td><td>Multiple high-severity signals across engines</td></tr>
+          <tr><td>26 &ndash; 40</td><td style="color:#ea580c;">High Risk</td><td>Significant anomalies in at least two engines</td></tr>
+          <tr><td>41 &ndash; 60</td><td style="color:var(--amber);">Medium Risk</td><td>Some suspicious signals; review recommended</td></tr>
+          <tr><td>61 &ndash; 100</td><td style="color:var(--green);">Low Risk</td><td>No significant authenticity concerns detected</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Weight Distribution</strong><br>
+      Network (35%) &gt; Behavioral (30%) &gt; Image (20%) &gt; Text (15%). Network analysis carries the highest weight because coordinated inauthentic behavior is the strongest indicator of fake account networks.
+    </div>
+
+    <h2 id="schema">Database <em>Schema</em></h2>
+    <p>ARGUS uses Cloudflare D1 (SQLite) with six tables:</p>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Table</th><th>Purpose</th><th>Key Fields</th></tr></thead>
+        <tbody>
+          <tr><td>profiles</td><td>Analyzed accounts</td><td>trust_score, signals, risk_level, slug, status</td></tr>
+          <tr><td>disputes</td><td>Opt-out/challenge requests</td><td>evidence_tier, status, resolution</td></tr>
+          <tr><td>submissions</td><td>Incoming analysis queue</td><td>admin_status, profile_id</td></tr>
+          <tr><td>networks</td><td>Coordinated account clusters</td><td>coordination_score, account_count</td></tr>
+          <tr><td>network_members</td><td>Profile-to-network junction</td><td>network_id, profile_id</td></tr>
+          <tr><td>community_reports</td><td>Crowdsourced flags</td><td>profile_id, report_reason</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Full schema: <a href="https://github.com/itallstartedwithaidea/argus/blob/main/d1_schema.sql" target="_blank" rel="noopener">d1_schema.sql on GitHub</a></p>
+
+    <h2 id="cloudflare">Cloudflare <em>Services</em></h2>
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Service</th><th>Binding</th><th>Purpose</th><th>Free Tier</th></tr></thead>
+        <tbody>
+          <tr><td>D1</td><td>DB</td><td>SQLite database</td><td>5 GB + 25M reads/day</td></tr>
+          <tr><td>R2</td><td>EVIDENCE_VAULT, SCREENSHOTS</td><td>Immutable evidence archive</td><td>10 GB + 10M ops/month</td></tr>
+          <tr><td>KV</td><td>SCORE_CACHE, RATE_LIMITER, SESSION</td><td>Score cache + rate limiting</td><td>100K reads/day</td></tr>
+          <tr><td>Workers</td><td>&mdash;</td><td>API + pipeline orchestration</td><td>100K req/day</td></tr>
+          <tr><td>Queues</td><td>ANALYSIS_QUEUE, NOTIFY_QUEUE</td><td>Async job processing</td><td>1M messages/month</td></tr>
+          <tr><td>Pages</td><td>&mdash;</td><td>Frontend hosting</td><td>Unlimited</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="extension">Browser <em>Extension</em></h2>
+    <p>ARGUS includes a Chrome MV3 extension that injects trust badges directly onto social media platforms as you browse.</p>
+
+    <h3>Supported Platforms</h3>
+    <ul>
+      <li><strong>LinkedIn</strong> &mdash; profile cards, search results, feed mentions</li>
+      <li><strong>Reddit</strong> &mdash; post authors, user profiles</li>
+      <li><strong>X / Twitter</strong> &mdash; tweets, user cells</li>
+      <li><strong>Instagram</strong> &mdash; posts, profile pages</li>
+      <li><strong>Facebook</strong> &mdash; profile pages (host_permissions only)</li>
+    </ul>
+
+    <h3>Installation</h3>
+    <ol>
+      <li>Clone the repository: <code>git clone https://github.com/itallstartedwithaidea/argus.git</code></li>
+      <li>Open Chrome &rarr; <code>chrome://extensions</code></li>
+      <li>Enable Developer Mode (top right)</li>
+      <li>Click &ldquo;Load Unpacked&rdquo; &rarr; select the <code>extension/</code> folder</li>
+    </ol>
+
+    <h3>How It Works</h3>
+    <p>The content script uses <code>MutationObserver</code> to detect dynamically loaded profile cards on SPAs. When a profile is found, it queries <code>/api/score</code> for the trust score. Profiles with scores below 75 get a color-coded badge injected next to the profile name. Clicking the badge opens the full analysis page.</p>
+
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Score</th><th>Badge</th><th>Color</th></tr></thead>
+        <tbody>
+          <tr><td>&le; 25</td><td>CRITICAL</td><td style="color:#dc2626;">Red</td></tr>
+          <tr><td>26 &ndash; 40</td><td>HIGH RISK</td><td style="color:#ea580c;">Orange</td></tr>
+          <tr><td>41 &ndash; 60</td><td>MEDIUM</td><td style="color:var(--amber);">Amber</td></tr>
+          <tr><td>61 &ndash; 75</td><td>CLEAN</td><td style="color:var(--green);">Green</td></tr>
+          <tr><td>&gt; 75</td><td>(no badge)</td><td>&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="legal">Legal <em>Architecture</em></h2>
+    <p>Every published ARGUS page is protected by five elements:</p>
+    <ol>
+      <li><strong>&ldquo;Algorithmic analysis, not a verdict&rdquo;</strong> &mdash; displayed prominently on every page</li>
+      <li><strong>Full methodology disclosure</strong> &mdash; open source, publicly auditable code</li>
+      <li><strong>Confidence and false positive rate</strong> &mdash; transparency in scoring</li>
+      <li><strong>Prominent dispute mechanism</strong> &mdash; above the fold, not buried</li>
+      <li><strong>Human editorial review</strong> &mdash; every published page reviewed by admin</li>
+    </ol>
+    <p>Language used throughout: &ldquo;flagged for review&rdquo;, &ldquo;high risk&rdquo;, &ldquo;scored X/100 based on these signals&rdquo; &mdash; never &ldquo;fake&rdquo;, &ldquo;fraud&rdquo;, or &ldquo;criminal&rdquo;.</p>
+
+    <h2 id="dispute">Dispute <em>Process</em></h2>
+    <p>Anyone can submit a dispute at <a href="/tools/argus/dispute.html">/tools/argus/dispute.html</a>.</p>
+
+    <div class="table-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Tier</th><th>Evidence</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>Tier 1</td><td>Government ID + platform verification</td><td>Auto-approve removal</td></tr>
+          <tr><td>Tier 2</td><td>Cross-platform presence, employer confirmation</td><td>Human review</td></tr>
+          <tr><td>Tier 3</td><td>&ldquo;I am real&rdquo; with no supporting evidence</td><td>Dispute denied</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Resolved disputes convert the page to a &ldquo;dispute resolved&rdquo; notice &mdash; retained for transparency, score removed from public display. Review timeline: 14 business days.</p>
+  </main>
+</div>
+
+<footer>
+  <p>
+    Part of the <a href="/">Google Ads Agent</a> ecosystem &middot;
+    <a href="/tools/argus/">ARGUS Overview</a> &middot;
+    <a href="/tools/argus/app.html">Submit Profile</a> &middot;
+    <a href="/tools/argus/dispute.html">Dispute</a> &middot;
+    <a href="https://github.com/itallstartedwithaidea/argus">GitHub</a>
+  </p>
+</footer>
+</body>
+</html>

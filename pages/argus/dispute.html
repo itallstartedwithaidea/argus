@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispute / Opt-Out — ARGUS by googleadsagent.ai</title>
+<meta name="description" content="Submit a dispute or opt-out request for an ARGUS authenticity analysis. Three evidence tiers: Government ID (auto-removal), cross-platform verification (human review), or no evidence (denied). Response within 14 business days.">
+<meta name="keywords" content="argus dispute, opt out, false positive, remove profile, dispute analysis, authenticity challenge">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://googleadsagent.ai/tools/argus/dispute.html">
+<meta property="og:title" content="Dispute / Opt-Out — ARGUS">
+<meta property="og:description" content="Submit a dispute or opt-out request for an ARGUS authenticity analysis. Response within 14 business days.">
+<meta property="og:url" content="https://googleadsagent.ai/tools/argus/dispute.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="googleadsagent.ai">
+<meta property="og:image" content="https://googleadsagent.ai/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dispute / Opt-Out — ARGUS">
+<meta name="twitter:description" content="Challenge or opt-out of an ARGUS authenticity analysis.">
+<meta name="twitter:image" content="https://googleadsagent.ai/og-image.png">
+<meta name="twitter:site" content="@_johnmwilliams">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='38%25' cy='38%25'%3E%3Cstop offset='0%25' stop-color='%23f0a830'/%3E%3Cstop offset='100%25' stop-color='%23b07518'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='15' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://googleadsagent.ai/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://googleadsagent.ai/tools/"},{"@type":"ListItem","position":3,"name":"ARGUS","item":"https://googleadsagent.ai/tools/argus/"},{"@type":"ListItem","position":4,"name":"Dispute / Opt-Out"}]}
+</script>
+<style>
+:root {
+  --bg: #08080d; --bg2: #0e0e16; --bg3: #14141f; --surface: #1a1a2a;
+  --border: #2a2a3a; --text: #e8e6e3; --text2: #9a9aaa; --text3: #686880;
+  --amber: #f0a830; --amber2: #d4941a; --amber-dim: rgba(240,168,48,.08);
+  --green: #4ade80; --blue: #60a5fa; --red: #f87171;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+a { color: var(--amber); text-decoration: none; }
+a:hover { color: var(--text); }
+
+.nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,13,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text2); }
+.nav-logo span { color: var(--amber); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { font-size: 0.85rem; color: var(--text2); font-weight: 500; }
+.nav-links a:hover { color: var(--amber); }
+.nav-hamburger { display: none; background: none; border: 1px solid var(--border); color: var(--text2); padding: 4px 8px; border-radius: 6px; font-size: 16px; cursor: pointer; }
+.mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: rgba(8,8,13,0.97); backdrop-filter: blur(16px); z-index: 99; padding: 16px; flex-direction: column; gap: 4px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--font-mono); font-size: 14px; color: var(--text2); padding: 12px 16px; border-radius: 8px; display: block; }
+.mobile-menu a:hover { color: var(--amber); background: var(--amber-dim); }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-hamburger { display: block; } }
+
+.breadcrumb-bar { max-width: 700px; margin: 0 auto; padding: 0 2rem; width: 100%; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--text3); padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.breadcrumb a { color: var(--text3); }
+.breadcrumb a:hover { color: var(--amber); }
+.breadcrumb .sep { opacity: 0.4; }
+
+.main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 3rem 2rem; }
+.form-container { max-width: 600px; width: 100%; }
+.form-header { text-align: center; margin-bottom: 2rem; }
+.form-header h1 { font-family: var(--font-serif); font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 0.75rem; }
+.form-header h1 em { font-style: normal; color: var(--amber); }
+.form-header p { color: var(--text2); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
+
+.tier-info { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 2rem; }
+.tier-info h3 { font-family: var(--font-mono); font-size: 0.82rem; color: var(--amber); margin-bottom: 12px; }
+.tier-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(42,42,58,0.4); font-size: 0.82rem; }
+.tier-row:last-child { border-bottom: none; }
+.tier-label { font-family: var(--font-mono); color: var(--amber); min-width: 55px; font-weight: 600; font-size: 0.72rem; }
+.tier-desc { color: var(--text2); flex: 1; }
+.tier-outcome { color: var(--text3); font-family: var(--font-mono); font-size: 0.72rem; min-width: 110px; text-align: right; }
+
+.form-group { margin-bottom: 1.5rem; }
+.form-label { display: block; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text2); margin-bottom: 6px; }
+.form-label .required { color: var(--red); }
+.form-label .optional { color: var(--text3); font-weight: 400; }
+.form-input, .form-select { width: 100%; padding: 12px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: var(--font-body); font-size: 0.95rem; transition: border-color 0.2s; }
+.form-input:focus, .form-select:focus { outline: none; border-color: var(--amber); }
+.form-input::placeholder { color: var(--text3); }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9aaa' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; cursor: pointer; }
+.form-select option { background: var(--bg2); color: var(--text); }
+textarea.form-input { resize: vertical; min-height: 100px; }
+.form-hint { font-size: 0.72rem; color: var(--text3); margin-top: 4px; font-family: var(--font-mono); }
+
+.submit-btn { width: 100%; padding: 14px; background: var(--amber); color: var(--bg); border: none; border-radius: 8px; font-family: var(--font-mono); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 0.5rem; }
+.submit-btn:hover { background: var(--text); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.result-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-top: 2rem; display: none; }
+.result-panel.show { display: block; }
+.result-icon { font-size: 2rem; text-align: center; margin-bottom: 8px; }
+.result-title { font-family: var(--font-mono); font-size: 1rem; font-weight: 600; text-align: center; margin-bottom: 4px; }
+.result-msg { font-size: 0.85rem; color: var(--text2); text-align: center; line-height: 1.6; }
+.result-id { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text3); text-align: center; margin-top: 12px; }
+
+footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text3); }
+footer a { color: var(--text2); }
+footer a:hover { color: var(--amber); }
+</style>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="/tools/argus/" class="nav-logo"><span>ARGUS</span> by googleadsagent.ai</a>
+  <div class="nav-links">
+    <a href="/tools/argus/">Overview</a>
+    <a href="/tools/argus/reports">Reports</a>
+    <a href="/tools/argus/app.html">Submit</a>
+    <a href="/tools/argus/docs.html">Docs</a>
+    <a href="/tools/">All Tools</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+</nav>
+<div class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="/tools/argus/">Overview</a>
+  <a href="/tools/argus/app.html">Submit</a>
+  <a href="/tools/argus/docs.html">Docs</a>
+  <a href="/tools/">All Tools</a>
+  <a href="https://github.com/itallstartedwithaidea/argus" target="_blank" rel="noopener">GitHub</a>
+</div>
+
+<div class="breadcrumb-bar">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a> <span class="sep">/</span>
+    <a href="/tools/">Tools</a> <span class="sep">/</span>
+    <a href="/tools/argus/">ARGUS</a> <span class="sep">/</span>
+    <span>Dispute / Opt-Out</span>
+  </nav>
+</div>
+
+<main class="main">
+  <div class="form-container">
+    <div class="form-header">
+      <h1>Dispute / <em>Opt-Out</em></h1>
+      <p>If you believe an ARGUS analysis is incorrect, or you want your profile removed from our public registry, submit a dispute below.</p>
+    </div>
+
+    <div class="tier-info">
+      <h3>Evidence Tiers</h3>
+      <div class="tier-row">
+        <div class="tier-label">Tier 1</div>
+        <div class="tier-desc">Government ID + platform verification badge</div>
+        <div class="tier-outcome">Auto-approve removal</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-label">Tier 2</div>
+        <div class="tier-desc">Cross-platform presence, employer/organization confirmation</div>
+        <div class="tier-outcome">Human review</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-label">Tier 3</div>
+        <div class="tier-desc">&ldquo;I am real&rdquo; with no supporting evidence</div>
+        <div class="tier-outcome">Dispute denied</div>
+      </div>
+    </div>
+
+    <form id="disputeForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="claimantName">Your full name <span class="required">*</span></label>
+        <input type="text" id="claimantName" name="claimant_name" class="form-input" placeholder="Jane Smith" required autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="claimantEmail">Your email <span class="required">*</span></label>
+        <input type="email" id="claimantEmail" name="claimant_email" class="form-input" placeholder="jane@example.com" required autocomplete="email">
+        <div class="form-hint">We'll contact you at this address with the outcome of your dispute.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="profileUrl">Profile URL or ARGUS page URL <span class="required">*</span></label>
+        <input type="url" id="profileUrl" name="profile_url" class="form-input" placeholder="https://linkedin.com/in/username or https://argus.googleadsagent.ai/profiles/..." required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="platform">Platform</label>
+        <select id="platform" name="platform" class="form-select">
+          <option value="">Select platform (if applicable)</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="reddit">Reddit</option>
+          <option value="instagram">Instagram</option>
+          <option value="x">X (Twitter)</option>
+          <option value="facebook">Facebook</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="handle">Profile handle / username</label>
+        <input type="text" id="handle" name="handle" class="form-input" placeholder="@username">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="disputeType">Dispute type <span class="required">*</span></label>
+        <select id="disputeType" name="dispute_type" class="form-select" required>
+          <option value="">Select type</option>
+          <option value="false_positive">False positive &mdash; I am a real person</option>
+          <option value="opt_out">Opt-out &mdash; remove my profile page</option>
+          <option value="data_correction">Data correction &mdash; information is wrong</option>
+          <option value="bot_comments">Bot comments &mdash; post is flooded with bot/fake comments</option>
+          <option value="fake_engagement">Fake engagement &mdash; fake likes, shares, or followers</option>
+          <option value="coordinated_network">Coordinated network &mdash; group of fake accounts working together</option>
+          <option value="impersonation">Impersonation &mdash; account is impersonating someone</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reason">Explain your dispute <span class="required">*</span></label>
+        <textarea id="reason" name="reason" class="form-input" placeholder="Describe why you believe the analysis is incorrect, or why your profile should be removed..." rows="4" required></textarea>
+        <div class="form-hint">Include any relevant context. The more detail you provide, the faster we can resolve your dispute.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="evidence">Supporting evidence URLs <span class="optional">(optional)</span></label>
+        <textarea id="evidence" name="evidence_notes" class="form-input" placeholder="Links to verification badges, employer websites, other social profiles, etc." rows="3"></textarea>
+        <div class="form-hint">Tier 1 and Tier 2 evidence significantly increases the likelihood of dispute approval.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="evidenceFiles">Upload Evidence Files <span class="optional">(optional, max 3 files, 10MB each)</span></label>
+        <input type="file" id="evidenceFiles" name="evidence_files" class="form-input" multiple accept="image/*,.pdf,.doc,.docx,.txt" style="padding:10px;background:var(--bg2);">
+        <div class="form-hint">Screenshots, ID verification documents, or other supporting files. Accepted: images, PDF, Word, text.</div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="disputeBtn">Submit Dispute</button>
+
+      <div style="text-align:center;margin-top:16px;font-size:0.78rem;color:var(--text3);">
+        You can also email disputes directly to <a href="mailto:john@itallstartedwithaidea.com" style="color:var(--amber)">john@itallstartedwithaidea.com</a>
+      </div>
+    </form>
+
+    <div class="result-panel" id="resultPanel">
+      <div class="result-icon" id="resultIcon"></div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <div class="result-id" id="resultId"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>
+    Part of the <a href="/">Google Ads Agent</a> ecosystem &middot;
+    <a href="/tools/argus/">ARGUS Overview</a> &middot;
+    <a href="/tools/argus/app.html">Submit Profile</a> &middot;
+    <a href="/privacy/">Privacy</a> &middot;
+    <a href="https://github.com/itallstartedwithaidea/argus">GitHub</a>
+  </p>
+</footer>
+
+<script>
+var ARGUS_API = '/api/argus';
+
+document.getElementById('disputeForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var name = document.getElementById('claimantName').value.trim();
+  var email = document.getElementById('claimantEmail').value.trim();
+  var profileUrl = document.getElementById('profileUrl').value.trim();
+  var platform = document.getElementById('platform').value;
+  var handle = document.getElementById('handle').value.trim();
+  var disputeType = document.getElementById('disputeType').value;
+  var reason = document.getElementById('reason').value.trim();
+  var evidence = document.getElementById('evidence').value.trim();
+  var fileInput = document.getElementById('evidenceFiles');
+  var files = fileInput ? fileInput.files : [];
+  var btn = document.getElementById('disputeBtn');
+
+  if (!name || !email || !disputeType || !reason) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  if (files.length > 3) {
+    alert('Maximum 3 files allowed.');
+    return;
+  }
+  for (var i = 0; i < files.length; i++) {
+    if (files[i].size > 10 * 1024 * 1024) {
+      alert('File "' + files[i].name + '" exceeds 10MB limit.');
+      return;
+    }
+  }
+
+  btn.disabled = true;
+  btn.textContent = files.length > 0 ? 'Uploading files...' : 'Submitting...';
+
+  // Upload files first if any
+  var uploadedFiles = [];
+  var uploadPromise = Promise.resolve();
+
+  if (files.length > 0) {
+    var uploads = [];
+    for (var j = 0; j < files.length; j++) {
+      uploads.push((function(file) {
+        var fd = new FormData();
+        fd.append('file', file);
+        fd.append('purpose', 'dispute_evidence');
+        return fetch(ARGUS_API + '?action=upload', { method: 'POST', body: fd })
+          .then(function(r) { return r.json(); })
+          .then(function(d) { if (d.key) uploadedFiles.push({ key: d.key, name: file.name, size: file.size }); });
+      })(files[j]));
+    }
+    uploadPromise = Promise.all(uploads);
+  }
+
+  uploadPromise.then(function() {
+    btn.textContent = 'Submitting...';
+    return fetch(ARGUS_API + '?action=dispute', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        claimant_name: name,
+        claimant_email: email,
+        profile_url: profileUrl,
+        platform: platform || undefined,
+        handle: handle || undefined,
+        dispute_type: disputeType,
+        reason: reason,
+        evidence_notes: evidence || undefined,
+        evidence_files: uploadedFiles.length > 0 ? uploadedFiles : undefined
+      })
+    });
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    var panel = document.getElementById('resultPanel');
+    panel.classList.add('show');
+
+    if (data.status === 'received') {
+      document.getElementById('resultIcon').textContent = '\u2705';
+      document.getElementById('resultTitle').textContent = 'Dispute Received';
+      document.getElementById('resultMsg').textContent = data.message || 'Your dispute has been received. We will review within 14 business days.';
+      document.getElementById('resultId').textContent = 'Dispute ID: ' + (data.dispute_id || '');
+      document.getElementById('disputeForm').style.display = 'none';
+    } else {
+      document.getElementById('resultIcon').textContent = '\u26A0\uFE0F';
+      document.getElementById('resultTitle').textContent = 'Submission Issue';
+      document.getElementById('resultMsg').textContent = data.error || 'Something went wrong. Please try again or contact us directly.';
+      btn.disabled = false;
+      btn.textContent = 'Submit Dispute';
+    }
+  })
+  .catch(function() {
+    var panel = document.getElementById('resultPanel');
+    panel.classList.add('show');
+    document.getElementById('resultIcon').textContent = '\u26A0\uFE0F';
+    document.getElementById('resultTitle').textContent = 'Connection Error';
+    document.getElementById('resultMsg').innerHTML = 'Could not reach the ARGUS API. Please contact us directly at <a href="mailto:john@itallstartedwithaidea.com" style="color:var(--amber)">john@itallstartedwithaidea.com</a>';
+    btn.disabled = false;
+    btn.textContent = 'Submit Dispute';
+  });
+});
+</script>
+</body>
+</html>
