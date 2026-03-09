@@ -67,6 +67,7 @@ DISPUTE_REVIEW_DAYS = "14"
 # ADMIN_SECRET_KEY
 # HIVE_API_KEY
 # GPTZERO_API_KEY
+# REPLICATE_API_KEY       (replicate.com — audio + video deepfake engines)
 # WAYBACK_API_KEY
 # SEARCH_CONSOLE_KEY
 # EMAIL_API_KEY           (Cloudflare Email Workers or Resend)
