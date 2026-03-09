@@ -1,0 +1,81 @@
+name = "argus"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "./pages/.next"
+
+# ── D1 Database ──────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "argus-db"
+database_id = "REPLACE_WITH_YOUR_D1_ID"
+
+# ── R2 Buckets ───────────────────────────────────────────
+[[r2_buckets]]
+binding = "EVIDENCE_VAULT"
+bucket_name = "argus-evidence-vault"
+
+[[r2_buckets]]
+binding = "SCREENSHOTS"
+bucket_name = "argus-screenshots"
+
+# ── KV Namespaces ─────────────────────────────────────────
+[[kv_namespaces]]
+binding = "SCORE_CACHE"
+id = "REPLACE_WITH_KV_ID"
+preview_id = "REPLACE_WITH_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "RATE_LIMITER"
+id = "REPLACE_WITH_RATE_KV_ID"
+preview_id = "REPLACE_WITH_RATE_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "SESSION"
+id = "REPLACE_WITH_SESSION_KV_ID"
+preview_id = "REPLACE_WITH_SESSION_KV_PREVIEW_ID"
+
+# ── Queues ────────────────────────────────────────────────
+[[queues.producers]]
+binding = "ANALYSIS_QUEUE"
+queue = "argus-analysis-queue"
+
+[[queues.producers]]
+binding = "NOTIFY_QUEUE"
+queue = "argus-notify-queue"
+
+[[queues.consumers]]
+queue = "argus-analysis-queue"
+max_batch_size = 5
+max_batch_timeout = 30
+max_retries = 3
+
+[[queues.consumers]]
+queue = "argus-notify-queue"
+max_batch_size = 10
+max_batch_timeout = 10
+
+# ── Environment Variables ─────────────────────────────────
+[vars]
+ENVIRONMENT = "production"
+APP_URL = "https://argus.googleadsagent.ai"
+ADMIN_EMAIL = "john@googleadsagent.ai"
+MODEL_VERSION = "1.0.0"
+FLAG_THRESHOLD = "40"         # publish pages below this score
+HIGH_RISK_THRESHOLD = "25"    # critical risk below this
+DISPUTE_REVIEW_DAYS = "14"
+
+# Secrets (set via: wrangler secret put SECRET_NAME)
+# ADMIN_SECRET_KEY
+# HIVE_API_KEY
+# GPTZERO_API_KEY
+# WAYBACK_API_KEY
+# SEARCH_CONSOLE_KEY
+# EMAIL_API_KEY           (Cloudflare Email Workers or Resend)
+
+# ── Routes ────────────────────────────────────────────────
+[[routes]]
+pattern = "argus.googleadsagent.ai/api/*"
+zone_name = "googleadsagent.ai"
+
+[[routes]]
+pattern = "argus.googleadsagent.ai/*"
+zone_name = "googleadsagent.ai"
