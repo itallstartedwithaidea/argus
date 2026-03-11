@@ -1,0 +1,50 @@
+name: PANOPTES Heartbeat
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode'
+        required: true
+        default: 'full'
+        type: choice
+        options: [check, post, engage, full]
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r panoptes/requirements.txt
+      - uses: actions/cache@v4
+        with:
+          path: panoptes/state/
+          key: panoptes-state-${{ github.run_id }}
+          restore-keys: panoptes-state-
+      - name: Run heartbeat
+        env:
+          MOLTBOOK_API_KEY: ${{ secrets.MOLTBOOK_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd panoptes/scripts
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python heartbeat.py --${{ inputs.mode }}
+          else
+            HOUR=$(date -u +%H)
+            MINUTE=$(date -u +%M)
+            python heartbeat.py --check
+            if [[ "$MINUTE" -lt "15" ]] && [[ "$HOUR" == "06" || "$HOUR" == "10" || "$HOUR" == "14" || "$HOUR" == "18" || "$HOUR" == "22" ]]; then
+              python heartbeat.py --engage
+              sleep 60
+              python heartbeat.py --post
+            fi
+          fi
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: panoptes/state/
+          key: panoptes-state-${{ github.run_id }}
