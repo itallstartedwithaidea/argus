@@ -38,10 +38,18 @@ jobs:
           else
             HOUR=$(date -u +%H)
             MINUTE=$(date -u +%M)
+
+            # Always check for notifications and reply
             python heartbeat.py --check
-            if [[ "$MINUTE" -lt "15" ]] && [[ "$HOUR" == "06" || "$HOUR" == "10" || "$HOUR" == "14" || "$HOUR" == "18" || "$HOUR" == "22" ]]; then
+
+            # Engage every 2 hours during active hours (05-23 UTC)
+            if [[ "$MINUTE" -lt "15" ]] && [[ $(( 10#$HOUR % 2 )) -eq 0 ]] && [[ 10#$HOUR -ge 5 ]] && [[ 10#$HOUR -le 23 ]]; then
               python heartbeat.py --engage
-              sleep 60
+              sleep 30
+            fi
+
+            # Post 3x per day: morning, afternoon, evening (08, 15, 21 UTC)
+            if [[ "$MINUTE" -lt "15" ]] && [[ "$HOUR" == "08" || "$HOUR" == "15" || "$HOUR" == "21" ]]; then
               python heartbeat.py --post
             fi
           fi
