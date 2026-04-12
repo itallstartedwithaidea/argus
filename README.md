@@ -1,5 +1,7 @@
 # 👁️ ARGUS by googleadsagent.ai
 
+[English](README.md) | [Français](README.fr.md) | [Español](README.es.md) | [中文](README.zh.md) | [Nederlands](README.nl.md) | [Русский](README.ru.md) | [한국어](README.ko.md)
+
 ### Algorithmic Authenticity Analysis Platform
 
 **VirusTotal for fake social media profiles & posts — free, open source, Cloudflare-native**
